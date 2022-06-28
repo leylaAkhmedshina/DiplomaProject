@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Create an account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/main.css">
+</head>
+<body>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <div sec:authorize="isAuthenticated()">
+                <form id="logoutForm" method="POST" th:action="@{/logout}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+
+                <h2>Welcome <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Просмотреть опыт работы кандидатов<br> по выбранной должности.</h1>
+    <div class="col-lg-6 mx-auto">
+        <form th:action="@{/v1/experienceByEmployment}" method="post" th:object="${employmentRequest}">
+            <div class="col-auto">
+                <select class="custom-select mr-sm-2 mb-2" th:field="*{selectedEmployment}">
+                    <option th:each="employment : ${employments}"
+                            th:text="${employment}"
+                            th:value="${employment}">
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-danger col-lg-12">Показать</button>
+            </div>
+        </form>
+    </div>
+    <div class="container col-lg-5">
+        <h2 class="mt-5 zagolovok-padding"> По введенным параметрам найдено:</h2>
+        <div class="row mb-3">
+            <div class="col-md-7 themed-grid-col">
+                <div th:each="key, value : ${result}">
+                    <div th:text="${key.key}"></div>
+                </div>
+            </div>
+            <div class="col-md-5 themed-grid-col">
+                <div th:each="key, value : ${result}">
+                    <div th:text="${key.value}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container sticky-xxl-bottom">
+    </div>
+</body>
+</html>

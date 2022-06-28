@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+    <div sec:authorize="isAuthenticated()">
+        <form id="logoutForm" method="POST" th:action="@{/logout}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+
+        <h2>Welcome <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+    </div>
+  </div>
+    </div>
+</header>
+<div class="container">
+  <div class="container px-4 py-5" id="custom-cards">
+      <h2 class="pb-2 border-bottom">Анализ профилей соискателей</h2>
+      <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+          <div class="col">
+              <div class="card card-cover h-100 overflow-hidden text-white bg-danger rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+                  <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                      <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Показать количество соискателей на должности</h2>
+                      <ul class="d-flex list-unstyled mt-auto">
+                      </ul>
+                      <a href="http://localhost:8080/v1/countByEmployment" class="btn btn-light">
+                          Перейти
+                      </a>
+                  </div>
+              </div>
+              <div class="d-inline-flex fs-2 mb-3">
+              </div>
+              <h3></h3>
+
+          </div>
+          <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-white bg-danger rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                  <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Показать количество соискателей на должность по городу</h2>
+                  <ul class="d-flex list-unstyled mt-auto">
+                  </ul>
+                  <a href="http://localhost:8080/v1/countByEmploymentAndLivingCity" class="btn btn-light">
+                      Перейти
+                  </a>
+              </div>
+          </div>
+          <div class="d-inline-flex fs-2 mb-3">
+          </div>
+          </div>
+              <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-white bg-danger rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                  <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Показать среднего соискателя по городу и возрасту</h2>
+                  <ul class="d-flex list-unstyled mt-auto">
+                  </ul>
+                  <a href="http://localhost:8080/v1/averageAgeByEmploymentAndCity" class="btn btn-light">
+                      Перейти
+                  </a>
+              </div>
+          </div>
+
+              </div>
+              <div class="col">
+                  <div class="card card-cover h-100 overflow-hidden text-white bg-danger rounded-4 shadow-lg mt-3" style="background-image: url('unsplash-photo-1.jpg');">
+                      <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                          <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Показать информацию о количестве людей по диапазону зарплат</h2>
+                          <ul class="d-flex list-unstyled mt-auto">
+                          </ul>
+                          <a href="http://localhost:8080/v1/salaryByEmployment" class="btn btn-light">
+                              Перейти
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              <div class="col">
+                  <div class="card card-cover h-100 overflow-hidden text-white bg-danger rounded-4 shadow-lg mt-3" style="background-image: url('unsplash-photo-1.jpg');">
+                      <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                          <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Показать последнее место работы соискателя по нескольким параметрам</h2>
+                          <ul class="d-flex list-unstyled mt-auto">
+                          </ul>
+                          <a href="http://localhost:8080/v1/lastJobByEmploymentAndAgeAndLanguage" class="btn btn-light">
+                              Перейти
+                          </a>
+                      </div>
+                  </div>
+                  <div class="d-inline-flex fs-2 mb-3">
+                  </div>
+              </div>
+
+              <div class="col">
+                  <div class="card card-cover h-100 overflow-hidden text-white bg-danger rounded-4 shadow-lg mt-3" style="background-image: url('unsplash-photo-1.jpg');">
+                      <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                          <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Показать опыт работы соискателя в группах</h2>
+                          <ul class="d-flex list-unstyled mt-auto">
+                          </ul>
+                          <a href="http://localhost:8080/v1/experienceByEmployment" class="btn btn-light">
+                              Перейти
+                          </a>
+                      </div>
+                  </div>
+              </div>
+      </div>
+
+</div>
+
+      </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
